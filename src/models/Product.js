@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const {v4: uuidv4} = require('uuid');
-const productSchema = new product.Schema({
+const productSchema = new mongoose.Schema({
     _id:{
         type:String,
         default: uuidv4
@@ -16,7 +16,7 @@ const productSchema = new product.Schema({
         required:true,
         index:true
     },
-    stock:{
+    price:{
         type:Number,
         default:0
     },

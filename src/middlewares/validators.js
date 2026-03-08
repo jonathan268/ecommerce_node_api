@@ -29,9 +29,9 @@ exports.loginSchema = Joi.object({
 });
 
 exports.addProductSchema = Joi.object({
-  name: Joi.string().min(6).max(600).required(),
+  name: Joi.string().min(3).max(600).required(),
 
   description: Joi.string().min(6).max(600).required(),
 
-  stock: Joi.number().min(1).max(10000000).required(),
+  price: Joi.number().min(1).max(10000000).required(),
 });

@@ -3,7 +3,7 @@ const {v4: uuidv4} = require('uuid');
 
 const orderSchema = new mongoose.Schema({
     _id:{
-        type:true,
+        type:String,
         default:uuidv4
     },
 
@@ -15,8 +15,8 @@ const orderSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        enum:['pending', 'paid', 'delivered', 'cancelled'],
-        default: pending,
+        enum:['PENDING', 'PAID', 'DELIVERED', 'CANCELED'],
+        default: 'PENDING',
         index:true
     },
     totalAmont:{

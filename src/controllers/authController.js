@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { doHash, doHashValidation } = require("../utils/hashing");
 const { loginSchema } = require("../middlewares/validators");
+const { registerSchema } = require("../middlewares/validators");
 
 exports.register = async (req, res) => {
   const { email, password } = req.body;
@@ -41,7 +42,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const { error, value } = loginSchema({ email, password });
+    const { error, value } = loginSchema.validate({ email, password });
     if (error) {
       return res
         .status(401)

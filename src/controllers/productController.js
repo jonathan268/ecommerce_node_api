@@ -28,12 +28,12 @@ exports.getAllProducts = async (req, res) => {
 };
 
 exports.addProduct = async (req, res) => {
-  const { name, description, stock } = req.body;
+  const { name, description, price } = req.body;
   try {
     const { error, value } = addProductSchema.validate({
       name,
       description,
-      stock,
+      price,
     });
 
     if (error) {
@@ -45,7 +45,7 @@ exports.addProduct = async (req, res) => {
     const result = await Product.create({
       name,
       description,
-      stock,
+      price,
     });
     res.status(201).json({
       success: true,
@@ -75,7 +75,7 @@ exports.getProductById = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
   const { _id } = req.query;
-  const {name, description, stock} = req.body;
+  const {name, description, price} = req.body;
 
   try {
     const existingProduct = await Product.findById({ _id });
@@ -87,7 +87,7 @@ exports.updateProduct = async (req, res) => {
 
     existingProduct.name = name; 
     existingProduct.description = description;
-    existingProduct.stock = stock;
+    existingProduct.price = price;
 
     const result = await existingProduct.save();
 

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { v4: uuidv4 } = require("uuid");
 
-const transactionSchema = new transaction.Schema({
+const transactionSchema = new mongoose.Schema({
   _id: {
     type: String,
     default: uuidv4,
@@ -11,7 +11,6 @@ const transactionSchema = new transaction.Schema({
     type: String,
     ref: "Payment",
     required: true,
-    index: true,
   },
   transactionId: {
     type: String,
