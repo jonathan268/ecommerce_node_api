@@ -1,14 +1,21 @@
+// routes/paymentRoutes.js
 const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/auth');
-const authorize = require('../middlewares/authorize');
 const paymentController = require('../controllers/paymentController');
 
-router.use(auth);
+// Routes protégées (nécessitent authentification)
+router.post('/cinetpay/initiate', auth, paymentController.initiateCinetpayPayment);
+router.get('/cinetpay/status/:transactionId', auth, paymentController.checkCinetpayStatus);
 
-router.get('/', paymentController.getPayments);
-router.post('/', paymentController.createPayment);
-router.get('/:id', paymentController.getPaymentById);
-router.put('/:id/status', paymentController.updatePaymentStatus); // pourrait être réservé admin + webhook
+// Route publique pour le webhook CinetPay (IPN)
+router.post(
+  '/cinetpay-webhook',
+  express.raw({ type: 'application/json' }), // ou express.json() si CinetPay envoie du JSON
+  paymentController.cinetpayWebhook
+);
+
+// Route de retour (publique, car redirigée par CinetPay)
+router.get('/return', paymentController.paymentReturn);
 
 module.exports = router;

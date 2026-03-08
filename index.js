@@ -11,6 +11,7 @@ const orderRoutes = require('./src/routes/orderRoutes')
 const paymentRoutes = require('./src/routes/paymentRoutes')
 const transactionRoutes = require('./src/routes/transactionRoutes')
 const oauthRoutes = require('./src/routes/oauthRoutes')
+const { swaggerUi, specs } = require('./src/config/swagger');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -47,6 +48,10 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/transactions', transactionRoutes);
 app.use('/api/oauth', oauthRoutes);
+
+// documentation de l'api
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
